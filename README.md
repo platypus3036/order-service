@@ -108,6 +108,7 @@
 -   **비효율적 메시지 형식 및 직렬화 비용**: JSON 사용 시 바이너리 대비 큰 메시지 크기, 직렬화/역직렬화 CPU 자원 소모.
 -   **헤더 중복 및 크기**: 매 요청/응답마다 큰 헤더 전송, 네트워크 대역폭 비효율적 사용.
 -   **Head-of-Line Blocking**: 단일 연결 내 순차 처리로 인한 후속 요청 대기.
+-   **요청-응답 로직**: User-Service에서 잔액/보유 주식을 확인한 후 로직이 진행되어야 해서 양방향 통신은 불가.
 
 **✅ 해결 (gRPC 도입)**
 -   **HTTP/2 기반 통신 효율 극대화**:
@@ -127,6 +128,8 @@
 -   **RestTemplate (HTTP/2)**
   
     <img width="625" alt="RestTemplate(http / 2)" src="https://github.com/user-attachments/assets/4fff0191-325f-4871-bf5c-4c3d19222c42" />
+
+    -> HTTP/2의 헤더 압축 시간이 요청 및 body데이터에 비해 너무 오래 걸려 백로그 큐 이상의 요청 -> 요청 거절
    
 
 -   **gRPC**
